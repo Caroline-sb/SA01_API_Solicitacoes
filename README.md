@@ -10,7 +10,7 @@
 Este projeto entrega um **MVP de solicitações internas** (ex.: manutenção/TI/suporte), com uma **API** para registro e acompanhamento de solicitações, persistência de dados e integração com a API pública do ViaCEP para busca automática de endereços.
 
 ## 3. Link da aplicação em nuvem
-- **URL:** [Vamos colar o link do Render aqui depois de publicar!]
+- **URL:** (https://pi-solicitacoes-grupodedoiscj.onrender.com/docs)
 - **Como validar rapidamente:** Acesse a URL da nuvem acrescentando `/docs` no final para abrir a documentação interativa (Swagger UI) e testar os endpoints.
 
 ## 4. Requisitos não funcionais adotados (resumo)
