@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Manutenção</title>
     <style>
-        /* CSS: O Design do Site */
         body {
             font-family: 'Segoe UI', sans-serif;
-            background-color: #f0f2f5; /* Um cinza bem clarinho e moderno */
+            background-color: #f0f2f5;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -22,175 +21,104 @@
             width: 100%;
             max-width: 600px;
             padding: 25px;
-            border-radius: 10px; /* Bordas arredondadas */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra suave 3D */
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             margin-bottom: 30px;
         }
 
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-top: 0;
-        }
-
-        .grupo-input {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #555;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-
+        h2 { color: #2c3e50; text-align: center; margin-top: 0; }
+        .grupo-input { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; color: #555; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: inherit; }
+        
         .btn-salvar {
-            background-color: #3498db;
-            color: white;
-            font-weight: bold;
-            padding: 12px;
-            width: 100%;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s; /* Animação suave ao passar o mouse */
+            background-color: #3498db; color: white; font-weight: bold; padding: 12px; width: 100%; border: none; border-radius: 6px; cursor: pointer; transition: background 0.3s;
         }
+        .btn-salvar:hover { background-color: #2980b9; }
 
-        .btn-salvar:hover {
-            background-color: #2980b9;
-        }
-
-        /* O estilo do "Card" inspirado na sua professora */
         .card-chamado {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 600px;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 6px solid #e74c3c; /* Uma barra lateral vermelha de destaque */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 15px;
+            background-color: #ffffff; width: 100%; max-width: 600px; padding: 15px; border-radius: 8px; border-left: 6px solid #e74c3c; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .card-chamado h3 {
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-        }
+        .dados-card { flex-grow: 1; }
+        .card-chamado h3 { margin: 0 0 10px 0; color: #2c3e50; }
+        .card-chamado p { margin: 5px 0; color: #666; }
+        
+        .status-aberto { background-color: #f1c40f; color: #000; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        .status-fechado { background-color: #2ecc71; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
 
-        .card-chamado p {
-            margin: 5px 0;
-            color: #666;
+        .btn-mudar {
+            background-color: #e74c3c; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; height: fit-content;
         }
-
-        .status-badge {
-            background-color: #f1c40f;
-            color: #000;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
+        .btn-mudar:hover { background-color: #c0392b; }
     </style>
 </head>
 <body>
 
     <div class="painel-principal">
         <h2>Abrir Novo Chamado</h2>
-        
-        <div class="grupo-input">
-            <label for="titulo">Título do Problema</label>
-            <input type="text" id="titulo" placeholder="Ex: Internet caindo no setor">
-        </div>
-        
-        <div class="grupo-input">
-            <label for="descricao">Descrição</label>
-            <textarea id="descricao" rows="3" placeholder="Detalhes do problema..."></textarea>
-        </div>
-        
-        <div class="grupo-input">
-            <label for="cep">CEP da Unidade</label>
-            <input type="text" id="cep" placeholder="Apenas números">
-        </div>
-        
+        <div class="grupo-input"><label>Título do Problema</label><input type="text" id="titulo"></div>
+        <div class="grupo-input"><label>Descrição</label><textarea id="descricao" rows="3"></textarea></div>
+        <div class="grupo-input"><label>CEP da Unidade</label><input type="text" id="cep" placeholder="Apenas números"></div>
         <button class="btn-salvar" onclick="salvarChamado()">REGISTRAR SOLICITAÇÃO</button>
     </div>
 
-    <div id="area-lista" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-        </div>
+    <div id="area-lista" style="width: 100%; display: flex; flex-direction: column; align-items: center;"></div>
 
     <script>
-        // 1. A Variável Global da API (copiamos a excelente ideia da professora!)
         const API = "https://pi-solicitacoes-grupodedoiscj.onrender.com";
 
-        // 2. Função para salvar os dados
         async function salvarChamado() {
             const tituloInput = document.getElementById("titulo").value;
             const descricaoInput = document.getElementById("descricao").value;
             const cepInput = document.getElementById("cep").value;
 
-            if (!tituloInput || !descricaoInput || !cepInput) {
-                alert("Por favor, preencha todos os campos!");
-                return;
-            }
+            if (!tituloInput || !descricaoInput || !cepInput) return alert("Preencha todos os campos!");
 
-            const dados = {
-                titulo: tituloInput,
-                descricao: descricaoInput,
-                cep: cepInput
-            };
-
-            // Mandando para a API no formato JSON exigido pelo Pydantic
             const resposta = await fetch(`${API}/solicitacoes`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(dados)
+                body: JSON.stringify({ titulo: tituloInput, descricao: descricaoInput, cep: cepInput })
             });
 
             if (resposta.ok) {
-                // Limpa os campos
                 document.getElementById("titulo").value = "";
                 document.getElementById("descricao").value = "";
                 document.getElementById("cep").value = "";
-                // Recarrega a lista
                 carregarLista();
             } else {
-                alert("Erro ao registrar. Verifique se o CEP é válido.");
+                alert("Erro ao registrar. Verifique o CEP.");
             }
         }
 
-        // 3. Função para buscar e desenhar os cards na tela
         async function carregarLista() {
             const resposta = await fetch(`${API}/solicitacoes`);
             const chamados = await resposta.json();
-            
             let htmlCards = "";
 
             chamados.forEach(chamado => {
-                // Montando o bloco visual de cada card
+                const classeStatus = chamado.status === "Aberto" ? "status-aberto" : "status-fechado";
                 htmlCards += `
                     <div class="card-chamado">
-                        <h3>#${chamado.id} - ${chamado.titulo}</h3>
-                        <p><strong>Descrição:</strong> ${chamado.descricao}</p>
-                        <p><strong>Local:</strong> ${chamado.local_atendimento}</p>
-                        <p><span class="status-badge">${chamado.status}</span></p>
+                        <div class="dados-card">
+                            <h3>#${chamado.id} - ${chamado.titulo}</h3>
+                            <p><strong>Descrição:</strong> ${chamado.descricao}</p>
+                            <p><strong>Local:</strong> ${chamado.local_atendimento}</p>
+                            <p><span class="${classeStatus}">${chamado.status}</span></p>
+                        </div>
+                        <button class="btn-mudar" onclick="alterarStatus(${chamado.id})">MUDAR STATUS</button>
                     </div>
                 `;
             });
-
-            // Injeta todo o HTML gerado dentro da área da lista
             document.getElementById("area-lista").innerHTML = htmlCards;
         }
 
-        // Carrega a lista automaticamente assim que você abre o arquivo HTML
+        // A função que muda o status no Python
+        async function alterarStatus(id) {
+            await fetch(`${API}/solicitacoes/${id}`, { method: "PUT" });
+            carregarLista(); 
+        }
+
         carregarLista();
     </script>
 </body>
