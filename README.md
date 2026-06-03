@@ -66,7 +66,7 @@ Este projeto entrega um **MVP de solicitações internas** (ex.: manutenção/TI
 
 ## 8. Como executar localmente
 ### Pré-requisitos
-- Python 3.x
+- Python 3.13
 ### Passos
 1. Instale as dependências: `pip install fastapi uvicorn requests pydantic`
 2. Execute o servidor: `uvicorn main:app --reload`
