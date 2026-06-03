@@ -71,3 +71,22 @@ Este projeto entrega um **MVP de solicitações internas** (ex.: manutenção/TI
 1. Instale as dependências: `pip install fastapi uvicorn requests pydantic`
 2. Execute o servidor: `uvicorn main:app --reload`
 3. Acesse no navegador: `http://127.0.0.1:8000/docs`
+
+## 9. Como testar (evidências)
+- **Coleção de API:** A documentação interativa e a coleção de rotas (Swagger UI) podem ser acessadas diretamente na rota `/docs` da aplicação em nuvem. O arquivo base OpenAPI pode ser obtido na rota `/openapi.json`.
+
+**Exemplos de chamadas (curl ou cliente HTTP):**
+
+```bash
+# Exemplo de chamada de sucesso (Listar Solicitações)
+curl -X GET "[https://pi-solicitacoes-grupodedoiscj.onrender.com/solicitacoes](https://pi-solicitacoes-grupodedoiscj.onrender.com/solicitacoes)" -H "accept: application/json"
+
+# Exemplo de chamada de criação (Nova Solicitação com Integração ViaCEP)
+curl -X POST "[https://pi-solicitacoes-grupodedoiscj.onrender.com/solicitacoes](https://pi-solicitacoes-grupodedoiscj.onrender.com/solicitacoes)" \
+     -H "accept: application/json" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "titulo": "Janaina",
+           "descricao": "Chamado de agendamento",
+           "cep": "83060230"
+         }'
